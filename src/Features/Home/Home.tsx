@@ -108,50 +108,48 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <div className="h-full">
-      {user ? (
-        <Page>
-          {<PageHeader showReturnButton={false} description={user.fullname} />}
+  return user ? (
+    <Page>
+      <div className="flex flex-col h-full items-center">
+        {<PageHeader showReturnButton={false} description={user?.fullname} />}
 
-          <hr />
-          <section className="h-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
-            <div className="text-left px-4">
-              <div className="flex justify-between items-center py-4">
-                <h3 className="font-semibold">Your Schools</h3>
-                <ul>
-                  <li
-                    onClick={openSchoolModal}
-                    className="text-slate-600 items-center w-full flex gap-2 justify-start px-4 cursor-pointer lg:text-[15px]"
-                  >
-                    <i className="fa fa-plus text-slate-500"></i>
-                    Create School
-                  </li>
-                </ul>
-              </div>
-              <hr />
-              {!isFetchingData ? (
-                displaySchools()
-              ) : (
-                <div className="text-center w-full pt-24">
-                  <SpinnerLoader />
-                </div>
-              )}
+        <hr />
+        <section className="h-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
+          <div className="text-left px-4">
+            <div className="flex justify-between items-center py-4">
+              <h3 className="font-semibold">Your Schools</h3>
+              <ul>
+                <li
+                  onClick={openSchoolModal}
+                  className="text-slate-600 items-center w-full flex gap-2 justify-start px-4 cursor-pointer lg:text-[15px]"
+                >
+                  <i className="fa fa-plus text-slate-500"></i>
+                  Create School
+                </li>
+              </ul>
             </div>
-          </section>
-          {addSchoolModal.isModalOpen &&
-            createPortal(
-              <AddSchool
-                closeModal={() => addSchoolModal.setIsModalOpen(false)}
-              />,
-              document.body
+            <hr />
+            {!isFetchingData ? (
+              displaySchools()
+            ) : (
+              <div className="text-center w-full pt-24">
+                <SpinnerLoader />
+              </div>
             )}
-        </Page>
-      ) : (
-        <div className="h-screen w-screen flex items-center justify-center">
-          <SpinnerLoader />
-        </div>
-      )}
+          </div>
+        </section>
+        {addSchoolModal.isModalOpen &&
+          createPortal(
+            <AddSchool
+              closeModal={() => addSchoolModal.setIsModalOpen(false)}
+            />,
+            document.body
+          )}
+      </div>
+    </Page>
+  ) : (
+    <div className="h-screen w-screen flex items-center justify-center">
+      <SpinnerLoader />
     </div>
   );
 };

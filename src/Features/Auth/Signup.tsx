@@ -95,7 +95,7 @@ function Signup() {
   return (
     <Page>
       <div className="flex flex-col h-full items-center">
-        <TopMenuBar />
+        <TopMenuBar/>
 
         <div className="flex-1 flex flex-col pt-14 sm:pt-32 overflow-y-auto pb-16 w-full sm:w-[380px]">
           <div className="relative flex flex-col gap-6 items-start px-4 w-full">

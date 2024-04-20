@@ -209,74 +209,78 @@ const School = () => {
 
   return (
     <Page>
-      <PageHeader description={user?.fullname} />
-      <hr />
-      <section className="h-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
-        <div className="flex items-center justify-between py-4">
-          <p className="font-semibold px-4">{scholar.School?.schoolName}</p>
-          <ul className="flex items-end gap-2">
-            {
-              <li
-                onClick={() => {
-                  setIsModalOpen(true);
-                  setTargetData(null);
-                }}
-                className={`${
-                  scholar.role === SchoolRoles.admin ||
-                  (scholar.role === SchoolRoles.lecturer &&
-                    tab === "courseEvents")
-                    ? "flex"
-                    : "hidden"
-                } text-slate-600 items-center w-full gap-2 justify-start px-4 cursor-pointer lg:text-[15px]`}
-              >
-                <i className="fa fa-plus text-slate-400" />
-                New{" "}
-                {tab === "courseEvents"
-                  ? "Event"
-                  : tab === "scholars"
-                  ? "Scholar"
-                  : "Device"}
-              </li>
-            }
-          </ul>
-        </div>
+      <div className="flex flex-col h-full items-center">
+        <PageHeader description={user?.fullname} />
         <hr />
-        <div className="relative w-fit sm:w-[380px] pt-2">
-          <Tabs
-            id="schoolTabs"
-            tabs={tabs}
-            currentTab={tab}
-            handleSwitch={switchTab}
-            type="text"
-          />
-        </div>
-        <hr />
+        <section className="h-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
+          <div className="flex items-center justify-between py-4">
+            <p className="font-semibold px-4">{scholar.School?.schoolName}</p>
+            <ul className="flex items-end gap-2">
+              {
+                <li
+                  onClick={() => {
+                    setIsModalOpen(true);
+                    setTargetData(null);
+                  }}
+                  className={`${
+                    scholar.role === SchoolRoles.admin ||
+                    (scholar.role === SchoolRoles.lecturer &&
+                      tab === "courseEvents")
+                      ? "flex"
+                      : "hidden"
+                  } text-slate-600 items-center w-full gap-2 justify-start px-4 cursor-pointer lg:text-[15px]`}
+                >
+                  <i className="fa fa-plus text-slate-400" />
+                  New{" "}
+                  {tab === "courseEvents"
+                    ? "Event"
+                    : tab === "scholars"
+                    ? "Scholar"
+                    : "Device"}
+                </li>
+              }
+            </ul>
+          </div>
+          <hr />
+          <div className="relative w-fit sm:w-[380px] pt-2">
+            <Tabs
+              id="schoolTabs"
+              tabs={tabs}
+              currentTab={tab}
+              handleSwitch={switchTab}
+              type="text"
+            />
+          </div>
+          <hr />
 
-        <div className="w-full text-center relative">
-          {isFetchingData && (
-            <div className="absolute left-[47%] top-32 ">
-              <SpinnerLoader />
-            </div>
+          <div className="w-full text-center relative">
+            {isFetchingData && (
+              <div className="absolute left-[47%] top-32 ">
+                <SpinnerLoader />
+              </div>
+            )}
+            {tab === "scholars"
+              ? displayScholars()
+              : tab === "devices"
+              ? displayDevices()
+              : tab === "courseEvents"
+              ? displayEvents()
+              : []}
+          </div>
+        </section>
+        {isModalOpen && createPortal(modalComponents[tab], document.body)}
+        {registerAttendeeEventModal.isModalOpen &&
+          createPortal(
+            <AddAttendee
+              closeModal={() =>
+                registerAttendeeEventModal.setIsModalOpen(false)
+              }
+              allEvents={allEvents}
+              targetScholar={targetData}
+            />,
+            document.body
           )}
-          {tab === "scholars"
-            ? displayScholars()
-            : tab === "devices"
-            ? displayDevices()
-            : tab === "courseEvents"
-            ? displayEvents()
-            : []}
-        </div>
-      </section>
-      {isModalOpen && createPortal(modalComponents[tab], document.body)}
-      {registerAttendeeEventModal.isModalOpen &&
-        createPortal(
-          <AddAttendee
-            closeModal={() => registerAttendeeEventModal.setIsModalOpen(false)}
-            allEvents={allEvents}
-            targetScholar={targetData}
-          />,
-          document.body
-        )}
+      </div>
     </Page>
   );
 };
