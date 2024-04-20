@@ -197,79 +197,83 @@ const Event = () => {
 
   return (
     <Page>
-      <PageHeader description={user?.fullname} />
-      <hr />
-      <section className="h-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
-        <div className="flex items-center justify-between py-4">
-          <div className="pl-4 text-left">
-            <p className="font-semibold mb-2">
-              {eventName}{" "}
-              <span className="text-slate-500 italic font-normal text-sm">
-                ({event?.status})
-              </span>
-            </p>
-            {event && (
-              <p className="flex items-center gap-2 text-slate-500 text-sm">
-                <span>Start: {new Date(event.startDate).toDateString()};</span>
-                <span>End: {new Date(event.endDate).toDateString()} </span>
+      <div className="flex flex-col h-full items-center">
+        <PageHeader description={user?.fullname} />
+        <hr />
+        <section className="h-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
+          <div className="flex items-center justify-between py-4">
+            <div className="pl-4 text-left">
+              <p className="font-semibold mb-2">
+                {eventName}{" "}
+                <span className="text-slate-500 italic font-normal text-sm">
+                  ({event?.status})
+                </span>
               </p>
-            )}
-          </div>
-          <ul className="flex items-center gap-2">
-            {scholar.role !== SchoolRoles.student && tab === "lectures" && (
-              <li
-                onClick={() => {
-                  tabModal.setIsModalOpen(true);
-                  setTargetData(null);
-                }}
-                className={`text-slate-600 items-center w-full flex gap-2 justify-start px-4 cursor-pointer lg:text-[15px]`}
-              >
-                <i className="fa fa-plus text-slate-400 text-lg sm:text-sm mr-4 sm:mr-0" />
-
-                <span className="hidden sm:block">New lecture</span>
-              </li>
-            )}
-          </ul>
-        </div>
-        <hr />
-        <div className="relative w-fit sm:w-[380px] pt-2">
-          <Tabs
-            id="schoolTabs"
-            tabs={tabs}
-            currentTab={tab}
-            handleSwitch={switchTab}
-            type="text"
-          />
-        </div>
-        <hr />
-
-        <div className="w-full text-center relative">
-          {isFetchingData && (
-            <div className="absolute left-[47%] top-32">
-              <SpinnerLoader />
+              {event && (
+                <p className="flex items-center gap-2 text-slate-500 text-sm">
+                  <span>
+                    Start: {new Date(event.startDate).toDateString()};
+                  </span>
+                  <span>End: {new Date(event.endDate).toDateString()} </span>
+                </p>
+              )}
             </div>
+            <ul className="flex items-center gap-2">
+              {scholar.role !== SchoolRoles.student && tab === "lectures" && (
+                <li
+                  onClick={() => {
+                    tabModal.setIsModalOpen(true);
+                    setTargetData(null);
+                  }}
+                  className={`text-slate-600 items-center w-full flex gap-2 justify-start px-4 cursor-pointer lg:text-[15px]`}
+                >
+                  <i className="fa fa-plus text-slate-400 text-lg sm:text-sm mr-4 sm:mr-0" />
+
+                  <span className="hidden sm:block">New lecture</span>
+                </li>
+              )}
+            </ul>
+          </div>
+          <hr />
+          <div className="relative w-fit sm:w-[380px] pt-2">
+            <Tabs
+              id="schoolTabs"
+              tabs={tabs}
+              currentTab={tab}
+              handleSwitch={switchTab}
+              type="text"
+            />
+          </div>
+          <hr />
+
+          <div className="w-full text-center relative">
+            {isFetchingData && (
+              <div className="absolute left-[47%] top-32">
+                <SpinnerLoader />
+              </div>
+            )}
+            {tab === "lectures" ? displayLectures() : displayAttendees()}
+          </div>
+        </section>
+        {tabModal.isModalOpen &&
+          createPortal(modalComponents[tab], document.body)}
+        {attendeeModal.isModalOpen &&
+          createPortal(
+            <Attendee
+              closeModal={() => attendeeModal.setIsModalOpen(false)}
+              targetData={targetData}
+            />,
+            document.body
           )}
-          {tab === "lectures" ? displayLectures() : displayAttendees()}
-        </div>
-      </section>
-      {tabModal.isModalOpen &&
-        createPortal(modalComponents[tab], document.body)}
-      {attendeeModal.isModalOpen &&
-        createPortal(
-          <Attendee
-            closeModal={() => attendeeModal.setIsModalOpen(false)}
-            targetData={targetData}
-          />,
-          document.body
-        )}
-      {lectureModal.isModalOpen &&
-        createPortal(
-          <Lecture
-            closeModal={() => lectureModal.setIsModalOpen(false)}
-            targetData={targetData}
-          />,
-          document.body
-        )}
+        {lectureModal.isModalOpen &&
+          createPortal(
+            <Lecture
+              closeModal={() => lectureModal.setIsModalOpen(false)}
+              targetData={targetData}
+            />,
+            document.body
+          )}
+      </div>
     </Page>
   );
 };
