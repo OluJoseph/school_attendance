@@ -1,0 +1,26 @@
+@keyframes spinner {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+  }
+
+  .spinner div {
+	border: 2px solid #e4e4e4;
+	border-top-color: transparent;
+	border-radius: 50%;
+  }
+
+  .spinner div {
+	animation: spinner 1s linear infinite;
+  }
+
+  .spinner-wrapper {
+	display: inline-block;
+	overflow: hidden;
+	background: none;
+  }
+
+  .spinner {
+	position: relative;
+	/* transform: translateZ(0) scale(0.34); */
+	backface-visibility: hidden;
+	}
