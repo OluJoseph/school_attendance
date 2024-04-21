@@ -134,7 +134,7 @@ const AddAttendee = ({
                 errors
               )
             }
-            options={Object.keys(eventNameAndIdMap)}
+            options={["", ...Object.keys(eventNameAndIdMap)]}
             name={"eventName"}
             label={"Event Name"}
             value={formValues.eventName}
