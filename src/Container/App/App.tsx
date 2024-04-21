@@ -59,7 +59,7 @@ function App() {
       >
         <AlertContext.Provider value={alertProviderValue}>
           <div className="App relative">
-            {!user && (
+            {!user && userToken && (
               <div className="absolute h-full w-full flex items-center justify-center">
                 <SpinnerLoader />
               </div>
