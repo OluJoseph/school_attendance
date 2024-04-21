@@ -1,6 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "./Modal";
-import { AlertSeverity, IAttendee, ICourseEvent, ModeOfAttendance } from "../Util/constants";
+import {
+  AlertSeverity,
+  IAttendee,
+  ICourseEvent,
+  ModeOfAttendance,
+} from "../Util/constants";
 import Input from "./input/Input";
 import { validate } from "../Features/Auth/util";
 import { AlertContext, ApiErrorContext, ScholarContext } from "../Util/context";
@@ -18,6 +23,7 @@ type AddEventModalProps = {
 const addEventValidationSchema = {
   eventName: {
     required: true,
+    regex: /^[A-Za-z][A-Za-z0-9_-]*$/,
   },
   courseCode: {
     required: true,
@@ -88,7 +94,7 @@ const AddEvent = ({ closeModal, targetData }: AddEventModalProps) => {
           return;
         }
         setAlert({
-          message: err.response?.data || "An error occured",
+          message: "An error occured, check your inputs",
           severity: AlertSeverity.error,
         });
       }
@@ -139,7 +145,10 @@ const AddEvent = ({ closeModal, targetData }: AddEventModalProps) => {
             label={"Event Name"}
             value={formValues.eventName}
             errors={errors}
-            specs={{ disabled: isSubmitting }}
+            specs={{
+              disabled: isSubmitting,
+              placeholder: "only letters and special characters, no spaces",
+            }}
           />
           <Input
             type={"text"}
