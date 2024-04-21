@@ -4,6 +4,9 @@ export const validateEmail = (email: string): boolean => {
   );
 };
 
+function validatePattern(pattern: RegExp, value: string) {
+  return pattern.test(value);
+}
 // for now this function is comparing a validation schema and the actual form values in the
 // email and required validations. These are the only types being used
 export const getErrors = (
@@ -28,6 +31,11 @@ export const getErrors = (
       errors = { ...errors, [name]: "Required" };
     } else if (nameValidationSchema.email && !validateEmail(formValues[name])) {
       errors = { ...errors, [name]: "Invalid email" };
+    } else if (
+      nameValidationSchema.regex &&
+      !validatePattern(nameValidationSchema.regex, formValues[name])
+    ) {
+      errors = { ...errors, [name]: "Invalid pattern" };
     }
   }
 
