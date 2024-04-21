@@ -116,7 +116,7 @@ const Event = () => {
   function displayLectures() {
     let lectureNodes = allLectures?.map((lecture: ILecture) => {
       return (
-        <li key={lecture.lectureId} className="py-4 px-2 w-full border-b">
+        <li key={lecture.lectureId} className="py-4 w-full border-b">
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-1">
               <p
@@ -150,7 +150,7 @@ const Event = () => {
       );
     });
 
-    return <ul className="w-full text-left px-4">{lectureNodes}</ul>;
+    return <ul className="w-full text-left">{lectureNodes}</ul>;
   }
 
   function displayAttendees() {
@@ -158,7 +158,7 @@ const Event = () => {
       return (
         <li
           key={attendee.attendeeInstanceId}
-          className="py-4 px-2 w-full border-b"
+          className="py-4 px-4 w-full border-b"
         >
           <div className="flex justify-between">
             <h4 className="flex items-center">
@@ -183,7 +183,7 @@ const Event = () => {
       );
     });
 
-    return <ul className="w-full text-left px-4">{attendeeNodes}</ul>;
+    return <ul className="w-full text-left">{attendeeNodes}</ul>;
   }
 
   useEffect(() => {
