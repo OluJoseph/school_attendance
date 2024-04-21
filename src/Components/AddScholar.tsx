@@ -21,7 +21,7 @@ const addScholarValidationSchema = {
   },
   email: {
     required: true,
-    type: "email",
+    email: true,
   },
   role: {
     required: true,
@@ -94,7 +94,7 @@ const AddScholar = ({ closeModal, targetData }: AddScholarModalProps) => {
           return;
         }
         setAlert({
-          message: "An error occured",
+          message: err.response?.data || "An error occured",
           severity: AlertSeverity.error,
         });
       }

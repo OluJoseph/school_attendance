@@ -88,7 +88,7 @@ const AddEvent = ({ closeModal, targetData }: AddEventModalProps) => {
           return;
         }
         setAlert({
-          message: "An error occured",
+          message: err.response?.data || "An error occured",
           severity: AlertSeverity.error,
         });
       }
