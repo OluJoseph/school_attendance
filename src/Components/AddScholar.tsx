@@ -121,7 +121,7 @@ const AddScholar = ({ closeModal, targetData }: AddScholarModalProps) => {
           {targetData === null ? "Create New Scholar" : "Scholar"}
         </h4>
         <hr className="mt-3 border-slate-100" />
-        {targetData.role === SchoolRoles.student && (
+        {targetData && targetData.role === SchoolRoles.student && (
           <div className="p-4 w-full border-b flex justify-between items-center">
             <p className="text-slate-600">
               Status: {targetData.enrolled ? "Enrolled" : "Not yet enrolled"}
