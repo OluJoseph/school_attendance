@@ -108,15 +108,15 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return user ? (
+  return (
     <Page>
       <div className="flex flex-col h-full items-center">
-        {<PageHeader showReturnButton={false} description={user?.fullname} />}
+        <PageHeader showReturnButton={false} description={user?.fullname} />
 
-        <hr />
-        <section className="h-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
-          <div className="text-left px-4">
-            <div className="flex justify-between items-center py-4">
+        <hr className="w-full" />
+        <section className="flex-1 h-full w-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
+          <div className="text-left px-4 flex flex-col items-start">
+            <div className="w-full flex justify-between items-center py-4">
               <h3 className="font-semibold">Your Schools</h3>
               <ul>
                 <li
@@ -128,7 +128,7 @@ const Home = () => {
                 </li>
               </ul>
             </div>
-            <hr />
+            <hr className="w-full" />
             {!isFetchingData ? (
               displaySchools()
             ) : (
@@ -147,10 +147,6 @@ const Home = () => {
           )}
       </div>
     </Page>
-  ) : (
-    <div className="h-screen w-screen flex items-center justify-center">
-      <SpinnerLoader />
-    </div>
   );
 };
 

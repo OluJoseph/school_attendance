@@ -22,7 +22,7 @@ const PageHeader = ({
 
   return (
     <div
-      className={`py-4 px-4 h-[56px] min-h-[56px] flex justify-between lg:justify-center items-center ${
+      className={`relative w-full py-4 px-4 h-[56px] min-h-[56px] flex justify-between lg:justify-center items-center ${
         showReturnButton && "pl-14 lg:pl-4"
       }`}
     >

@@ -199,8 +199,8 @@ const Event = () => {
     <Page>
       <div className="flex flex-col h-full items-center">
         <PageHeader description={user?.fullname} />
-        <hr />
-        <section className="h-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
+        <hr className="w-full" />
+        <section className="flex-1 h-full w-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
           <div className="flex items-center justify-between py-4">
             <div className="pl-4 text-left">
               <p className="font-semibold mb-2">

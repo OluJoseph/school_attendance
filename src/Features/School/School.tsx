@@ -178,7 +178,7 @@ const School = () => {
       return (
         <li key={event.courseEventId} className="py-4 px-2 w-full border-b">
           <div className="flex justify-between">
-            <h4 className="flex items-center">
+            <div>
               <p
                 onClick={() => {
                   navigate(`${event.eventName}/${event.courseEventId}`);
@@ -188,7 +188,7 @@ const School = () => {
                 {event.eventName}
               </p>
               <span className="text-slate-700">{event.courseCode}</span>
-            </h4>
+            </div>
             <span className="text-slate-400 italic">{event.status}</span>
           </div>
         </li>
@@ -211,8 +211,8 @@ const School = () => {
     <Page>
       <div className="flex flex-col h-full items-center">
         <PageHeader description={user?.fullname} />
-        <hr />
-        <section className="h-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
+        <hr className="w-full" />
+        <section className="h-full w-full flex-1 pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
           <div className="flex items-center justify-between py-4">
             <p className="font-semibold px-4">{scholar.School?.schoolName}</p>
             <ul className="flex items-end gap-2">
