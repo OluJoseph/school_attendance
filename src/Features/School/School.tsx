@@ -109,7 +109,7 @@ const School = () => {
   function displayScholars() {
     let scholarNodes = allScholars?.map((scholar: IScholar) => {
       return (
-        <li key={scholar.scholarId} className="py-4 px-2 w-full border-b">
+        <li key={scholar.scholarId} className="py-4 px-4 w-full border-b">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <div>
@@ -141,13 +141,13 @@ const School = () => {
       );
     });
 
-    return <ul className="w-full text-left px-4">{scholarNodes}</ul>;
+    return <ul className="w-full text-left">{scholarNodes}</ul>;
   }
 
   function displayDevices() {
     let deviceNodes = allDevices?.map((device: IDevice) => {
       return (
-        <li key={device.deviceId} className="py-4 px-2 w-full border-b">
+        <li key={device.deviceId} className="py-4 px-4 w-full border-b">
           <div className="flex justify-between">
             <h4 className="flex items-center">
               <p
@@ -169,14 +169,14 @@ const School = () => {
       );
     });
 
-    return <ul className="w-full text-left px-4">{deviceNodes}</ul>;
+    return <ul className="w-full text-left">{deviceNodes}</ul>;
   }
 
   function displayEvents() {
     let eventNodes = allEvents?.map((event: any) => {
       event = event.CourseEvent || event;
       return (
-        <li key={event.courseEventId} className="py-4 px-2 w-full border-b">
+        <li key={event.courseEventId} className="py-4 px-4 w-full border-b">
           <div className="flex justify-between">
             <div>
               <p
@@ -195,7 +195,7 @@ const School = () => {
       );
     });
 
-    return <ul className="w-full text-left px-4">{eventNodes}</ul>;
+    return <ul className="w-full text-left">{eventNodes}</ul>;
   }
 
   useEffect(() => {
@@ -211,8 +211,10 @@ const School = () => {
     <Page>
       <div className="flex flex-col h-full items-center">
         <PageHeader description={user?.fullname} />
+		
         <hr className="w-full" />
-        <section className="h-full w-full flex-1 pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
+
+        <section className=" w-full pb-10 sm:px-[10%] lg:px-[20%] overflow-y-auto">
           <div className="flex items-center justify-between py-4">
             <p className="font-semibold px-4">{scholar.School?.schoolName}</p>
             <ul className="flex items-end gap-2">

@@ -58,17 +58,14 @@ function App() {
         }}
       >
         <AlertContext.Provider value={alertProviderValue}>
-          <div className="App">
-            <Suspense
-              fallback={
-                <div className="h-screen w-screen flex items-center justify-center">
-                  <SpinnerLoader />
-                </div>
-              }
-            >
-              <AppRoutes />
-              <CustomSnackbar />
-            </Suspense>
+          <div className="App relative">
+            {!user && (
+              <div className="absolute h-full w-full flex items-center justify-center">
+                <SpinnerLoader />
+              </div>
+            )}
+            <AppRoutes />
+            <CustomSnackbar />
           </div>
         </AlertContext.Provider>
         {networkError && (

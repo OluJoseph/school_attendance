@@ -76,7 +76,7 @@ const Home = () => {
   function displaySchools() {
     let schoolNodes = userSchools?.map((scholar: IScholar) => {
       return (
-        <li key={scholar.scholarId} className="py-4 px-2 w-full border-b">
+        <li key={scholar.scholarId} className="py-4 px-4 w-full border-b">
           <div className="flex justify-between">
             <h4
               onClick={() => goToSchool(scholar)}
@@ -114,14 +114,14 @@ const Home = () => {
         <PageHeader showReturnButton={false} description={user?.fullname} />
 
         <hr className="w-full" />
-        <section className="flex-1 h-full w-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
-          <div className="text-left px-4 flex flex-col items-start">
-            <div className="w-full flex justify-between items-center py-4">
+        <section className="w-full sm:px-[10%] lg:px-[20%] overflow-y-auto">
+          <div className="text-left flex flex-col items-start">
+            <div className="w-full flex px-4 justify-between items-center py-4">
               <h3 className="font-semibold">Your Schools</h3>
               <ul>
                 <li
                   onClick={openSchoolModal}
-                  className="text-slate-600 items-center w-full flex gap-2 justify-start px-4 cursor-pointer lg:text-[15px]"
+                  className="text-slate-600 items-center w-full flex gap-2 justify-start cursor-pointer lg:text-[15px]"
                 >
                   <i className="fa fa-plus text-slate-500"></i>
                   Create School
