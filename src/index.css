@@ -23,6 +23,7 @@
 
  html, body {
 	height: 100%;
+	overflow-anchor: none;
  }
  
  body {
@@ -33,11 +34,16 @@
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
    overflow: hidden;
+   overflow-anchor: none;
  }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.App {
+	overflow-anchor: none;
 }
 
 @keyframes spin {
