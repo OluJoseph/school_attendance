@@ -116,7 +116,7 @@ const Event = () => {
   function displayLectures() {
     let lectureNodes = allLectures?.map((lecture: ILecture) => {
       return (
-        <li key={lecture.lectureId} className="py-4 w-full border-b">
+        <li key={lecture.lectureId} className="py-4 px-4 w-full border-b">
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-1">
               <p
