@@ -94,7 +94,10 @@ const AddEvent = ({ closeModal, targetData }: AddEventModalProps) => {
           return;
         }
         setAlert({
-          message: "An error occured, check your inputs",
+          message:
+            err.response?.data?.message || !err.response?.data
+              ? "An error occured"
+              : err.response?.data,
           severity: AlertSeverity.error,
         });
       }
