@@ -9,6 +9,9 @@ import SpinnerLoader from "./customLoader/SpinnerLoader";
 
 import { post, update } from "../Util/api";
 import SelectInput from "./input/SelectInput";
+import { useModal } from "../Util/hooks";
+import { createPortal } from "react-dom";
+import Enrollment from "./Enrollment";
 
 type AddScholarModalProps = {
   closeModal?: any;
@@ -51,6 +54,8 @@ const AddScholar = ({ closeModal, targetData }: AddScholarModalProps) => {
   const { setNetworkError } = useContext(ApiErrorContext);
   const { setAlert } = useContext(AlertContext);
   const { scholar } = useContext(ScholarContext);
+
+  const { isModalOpen, setIsModalOpen } = useModal();
 
   function handleSubmit(e: any) {
     e.preventDefault();
@@ -118,21 +123,30 @@ const AddScholar = ({ closeModal, targetData }: AddScholarModalProps) => {
     <Modal closeModal={closeModal}>
       <div>
         <h4 className="absolute top-[20px] left-[16px] font-semibold">
-          {targetData === null ? "Create New Scholar" : "Scholar"}
+          {targetData === null
+            ? "Create New Scholar"
+            : targetData.User?.fullname}
         </h4>
         <hr className="mt-3 border-slate-100" />
         {targetData && targetData.role === SchoolRoles.student && (
           <div className="p-4 w-full border-b flex justify-between items-center">
-            <p className="text-slate-600">
-              Status: {targetData.enrolled ? "Enrolled" : "Not yet enrolled"}
-            </p>
-            {!targetData.enrolled ? (
-              <span className="cursor-pointer mr-4 text-blue-500 hover:text-blue-400 active:text-blue-700">
-                Begin enrollment
-              </span>
-            ) : (
-              <span className="text-slate-700 text-sm">ID: {targetData.tagId}</span>
-            )}
+            <div>
+              <p className="text-slate-600">
+                Status: {targetData.enrolled ? "Enrolled" : "Not yet enrolled"}
+              </p>
+              {!(targetData.tagId && targetData.bluetoothId) && (
+                <span
+                  onClick={() => setIsModalOpen(true)}
+                  className="cursor-pointer mr-4 text-blue-500 hover:text-blue-400 active:text-blue-700"
+                >
+                  Begin enrollment
+                </span>
+              )}
+            </div>
+            <span className="text-slate-700 text-sm">
+              Tag ID: {targetData.tagId ? "Assigned" : "Unassigned"} <br />
+              Bluetooth ID: {targetData.bluetoothId ? "Assigned" : "Unassigned"}
+            </span>
           </div>
         )}
         <form className="flex flex-col gap-4 p-4">
@@ -256,6 +270,14 @@ const AddScholar = ({ closeModal, targetData }: AddScholarModalProps) => {
           </div>
         </form>
       </div>
+      {isModalOpen &&
+        createPortal(
+          <Enrollment
+            closeModal={() => setIsModalOpen(false)}
+            scholar={targetData}
+          />,
+          document.body
+        )}
     </Modal>
   );
 };
