@@ -14,7 +14,6 @@ export const update = async (path: string, body: any) => {
   return await backendService.put(path, body);
 };
 
-export const remove = async (path: string, id: string | undefined) => {
-  const url = path + id;
-  return await backendService.del(url);
+export const remove = async (path: string) => {
+  return await backendService.del(path);
 };
