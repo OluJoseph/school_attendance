@@ -116,12 +116,12 @@ const Enrollment = ({ closeModal, scholar }: EnrollmentModalProps) => {
 
   return (
     <Modal>
-      <div className="min-h-[300px] h-full flex flex-col justify-between">
+      <div className="min-h-[300px] pb-32 sm:pb-0 h-full flex flex-col justify-between">
         <h4 className="absolute top-[20px] left-[16px] font-semibold">
           Enrollment
         </h4>
         <hr className="mt-3 border-slate-100" />
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex-1  flex items-center justify-center">
           {!isEnrolling ? (
             !session ? (
               <div className="text-center">
