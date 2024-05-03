@@ -27,7 +27,7 @@ const Lecture = ({ closeModal, targetData }: LectureModalProps) => {
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-1">
               <p className="cursor-pointer mr-4 text-blue-500 hover:text-blue-400 active:text-blue-700">
-                {record.Scholar?.schoolNumber}
+                {record.User?.fullname}, {record.Scholar?.schoolNumber}
               </p>
               <div>
                 <span className="text-slate-700 text-sm mr-4">

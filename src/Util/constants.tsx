@@ -106,6 +106,8 @@ export interface IAttendanceRecord {
   timeIn: Date;
   timeOut: Date;
   Scholar?: IScholar;
+  userId: UUID;
+  User?: IUser;
 }
 
 export interface IUser {
