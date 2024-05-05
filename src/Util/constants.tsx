@@ -31,9 +31,9 @@ export enum EventRole {
   attendee = "attendee",
 }
 
-export enum ModeOfAttendance {
+export enum Use {
   RFID = "RFID",
-  bluetooth = "bluetooth",
+  Bluetooth = "Bluetooth",
 }
 
 // icons
@@ -145,6 +145,7 @@ export interface IDevice {
   mode: DeviceMode;
   courseEventId: UUID;
   schoolId: UUID;
+  use: Use;
 }
 
 export interface ICourseEvent {
@@ -157,7 +158,6 @@ export interface ICourseEvent {
   startDate: Date;
   endDate: Date;
   status: EventStatus;
-  modeOfAttendance: ModeOfAttendance;
 }
 
 export interface IAttendee {

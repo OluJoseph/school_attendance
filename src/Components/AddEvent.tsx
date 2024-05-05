@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "./Modal";
-import {
-  AlertSeverity,
-  IAttendee,
-  ICourseEvent,
-  ModeOfAttendance,
-} from "../Util/constants";
+import { AlertSeverity, IAttendee, ICourseEvent } from "../Util/constants";
 import Input from "./input/Input";
 import { validate } from "../Features/Auth/util";
 import { AlertContext, ApiErrorContext, ScholarContext } from "../Util/context";
@@ -13,7 +8,6 @@ import { updateFormValues } from "../Util/util";
 import SpinnerLoader from "./customLoader/SpinnerLoader";
 
 import { post } from "../Util/api";
-import SelectInput from "./input/SelectInput";
 
 type AddEventModalProps = {
   closeModal?: any;
@@ -34,12 +28,9 @@ const addEventValidationSchema = {
   endDate: {
     required: true,
   },
-  ModeOfAttendance: {
-    required: true,
-  },
 };
 
-const AddEvent = ({ closeModal, targetData }: AddEventModalProps) => {
+const AddEvent = ({ closeModal }: AddEventModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<any>({});
   const { scholar } = useContext(ScholarContext);
@@ -50,7 +41,6 @@ const AddEvent = ({ closeModal, targetData }: AddEventModalProps) => {
       courseCode: "",
       startDate: "",
       endDate: "",
-      modeOfAttendance: ModeOfAttendance.RFID,
     };
   });
 
@@ -225,31 +215,6 @@ const AddEvent = ({ closeModal, targetData }: AddEventModalProps) => {
             name={"endDate"}
             label={"End Date"}
             value={formValues.endDate}
-            errors={errors}
-            specs={{ disabled: isSubmitting }}
-          />
-          <SelectInput
-            handleChange={(e: any) =>
-              updateFormValues(
-                e.target.name,
-                e.target.value,
-                formValues,
-                setFormValues
-              )
-            }
-            handleBlur={(e: any) =>
-              validate(
-                e,
-                formValues,
-                addEventValidationSchema,
-                setErrors,
-                errors
-              )
-            }
-            options={["RFID", "bluetooth"]}
-            name={"modeOfAttendance"}
-            label={"Attendance Mode"}
-            value={formValues.modeOfAttendance}
             errors={errors}
             specs={{ disabled: isSubmitting }}
           />

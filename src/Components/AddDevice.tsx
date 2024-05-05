@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "./Modal";
-import { AlertSeverity, ICourseEvent, IDevice } from "../Util/constants";
+import { AlertSeverity, ICourseEvent, IDevice, Use } from "../Util/constants";
 import Input from "./input/Input";
 import { validate } from "../Features/Auth/util";
 import { AlertContext, ApiErrorContext, ScholarContext } from "../Util/context";
@@ -50,6 +50,7 @@ const AddDevice = ({
           deviceId: targetData.deviceId,
           mode: targetData.mode,
           courseEvent: targetDeviceEventName,
+          use: targetData.use,
         };
   });
 
@@ -80,6 +81,7 @@ const AddDevice = ({
                 `device/${scholar.schoolId}/${targetData.deviceId}`,
                 {
                   mode: formValues.mode,
+                  use: formValues.use,
                   courseEventId:
                     eventNameAndIdMap[formValues.courseEvent] || null,
                 }
@@ -95,6 +97,7 @@ const AddDevice = ({
           window.location.reload();
         }
       } catch (err: any) {
+		console.log(err)
         setIsSubmitting(false);
         if (err.message === "Network Error") {
           setNetworkError(true);
@@ -208,6 +211,31 @@ const AddDevice = ({
                 name={"mode"}
                 label={"Device Mode"}
                 value={formValues.mode}
+                errors={errors}
+                specs={{ disabled: isSubmitting }}
+              />
+              <SelectInput
+                handleChange={(e: any) =>
+                  updateFormValues(
+                    e.target.name,
+                    e.target.value,
+                    formValues,
+                    setFormValues
+                  )
+                }
+                handleBlur={(e: any) =>
+                  validate(
+                    e,
+                    formValues,
+                    addDeviceValidationSchema,
+                    setErrors,
+                    errors
+                  )
+                }
+                options={["RFID", "Bluetooth"]}
+                name={"use"}
+                label={"Use"}
+                value={formValues.use}
                 errors={errors}
                 specs={{ disabled: isSubmitting }}
               />
