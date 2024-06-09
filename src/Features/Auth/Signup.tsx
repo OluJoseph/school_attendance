@@ -51,10 +51,9 @@ function Signup() {
   async function signup() {
     if (validate(null, formValues, signupValidationSchema, setErrors, errors)) {
       try {
-        const response = await post("/user/signup", formValues);
-        console.log(response);
+        await post("/user/signup", formValues);
         setAlert({
-          message: `user created`,
+          message: `user created. Check email for account activation.`,
           severity: AlertSeverity.success,
         });
         navigate("/");
