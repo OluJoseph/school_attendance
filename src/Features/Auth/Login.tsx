@@ -5,10 +5,7 @@ import SpinnerLoader from "../../Components/customLoader/SpinnerLoader";
 import Input from "../../Components/input/Input";
 import Page from "../../Components/Page";
 import TopMenuBar from "../../Components/TopMenuBar";
-import {
-  AlertSeverity,
-  arrowIconYellow,
-} from "../../Util/constants";
+import { AlertSeverity, arrowIconYellow } from "../../Util/constants";
 import { AlertContext, ApiErrorContext } from "../../Util/context";
 import { validate } from "./util";
 import { updateFormValues } from "../../Util/util";
@@ -63,6 +60,13 @@ const Login = () => {
         if (err.response?.status === 404) {
           setAlert({
             message: "User does not exist",
+            severity: AlertSeverity.error,
+          });
+          setIsSubmitting(false);
+          return;
+        } else if (err.response?.status === 404) {
+          setAlert({
+            message: "User not verified. Check email for activation",
             severity: AlertSeverity.error,
           });
           setIsSubmitting(false);

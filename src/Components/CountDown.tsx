@@ -22,6 +22,7 @@ const CountDown = ({
     }
 
     return () => clearInterval(interval);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTime]);
 
   return <div className="text-slate-700">{currentTime.toString()}</div>;

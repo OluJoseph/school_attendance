@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import "./App.css";
 
@@ -45,6 +45,7 @@ function App() {
     } else {
       logout(setUser, navigate);
     }
+	// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

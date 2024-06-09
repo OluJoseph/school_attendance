@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Modal from "./Modal";
 import { AlertSeverity, IAttendanceRecord, ILecture } from "../Util/constants";
 
-import { AlertContext, ApiErrorContext } from "../Util/context";
+import { AlertContext } from "../Util/context";
 import SpinnerLoader from "./customLoader/SpinnerLoader";
 
 import { get } from "../Util/api";
@@ -17,7 +17,6 @@ const Lecture = ({ closeModal, targetData }: LectureModalProps) => {
 
   const [records, setRecords] = useState<IAttendanceRecord[]>();
 
-  const { setNetworkError } = useContext(ApiErrorContext);
   const { setAlert } = useContext(AlertContext);
 
   function displayRecords() {

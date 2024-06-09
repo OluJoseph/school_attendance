@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Util/context";
 import Dropdown from "./Dropdown";
 import { logout } from "../Util/util";
@@ -18,7 +18,6 @@ export type DropdownOption = {
 
 const User = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [showDropdown, setShowDropdown] = useState(false);
 
   const { user, setUser } = useContext(UserContext);
@@ -31,10 +30,10 @@ const User = () => {
     // },
   ];
 
-  function handleNavigation(path: string) {
-    toggleShowDropdown();
-    path !== location.pathname && navigate(path);
-  }
+//   function handleNavigation(path: string) {
+//     toggleShowDropdown();
+//     path !== location.pathname && navigate(path);
+//   }
 
   function toggleShowDropdown() {
     setShowDropdown(!showDropdown);
