@@ -31,10 +31,10 @@ const User = () => {
     // },
   ];
 
-  function handleNavigation(path: string) {
-    toggleShowDropdown();
-    path !== location.pathname && navigate(path);
-  }
+//   function handleNavigation(path: string) {
+//     toggleShowDropdown();
+//     path !== location.pathname && navigate(path);
+//   }
 
   function toggleShowDropdown() {
     setShowDropdown(!showDropdown);

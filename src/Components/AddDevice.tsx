@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "./Modal";
-import { AlertSeverity, ICourseEvent, IDevice, Use } from "../Util/constants";
+import { AlertSeverity, ICourseEvent, IDevice } from "../Util/constants";
 import Input from "./input/Input";
 import { validate } from "../Features/Auth/util";
 import { AlertContext, ApiErrorContext, ScholarContext } from "../Util/context";

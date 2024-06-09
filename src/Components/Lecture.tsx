@@ -17,7 +17,6 @@ const Lecture = ({ closeModal, targetData }: LectureModalProps) => {
 
   const [records, setRecords] = useState<IAttendanceRecord[]>();
 
-  const { setNetworkError } = useContext(ApiErrorContext);
   const { setAlert } = useContext(AlertContext);
 
   function displayRecords() {
