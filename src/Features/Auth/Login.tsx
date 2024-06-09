@@ -62,14 +62,12 @@ const Login = () => {
             message: "User does not exist",
             severity: AlertSeverity.error,
           });
-          setIsSubmitting(false);
           return;
-        } else if (err.response?.status === 404) {
+        } else if (err.response?.status === 403) {
           setAlert({
             message: "User not verified. Check email for activation",
             severity: AlertSeverity.error,
           });
-          setIsSubmitting(false);
           return;
         } else if (err.message === "Network Error") {
           setNetworkError(true);
