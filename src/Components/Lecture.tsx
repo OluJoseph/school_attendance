@@ -93,7 +93,7 @@ const Lecture = ({ closeModal, targetData }: LectureModalProps) => {
         <div className="p-4 border-t border-b w-full mb-2">
           <p className="font-semibold">Attendance Records</p>
         </div>
-        <div className="w-[540px] text-center relative">
+        <div className="w-full sm:w-[540px] text-center relative">
           {isFetchingData && (
             <div className="absolute left-[47%] top-32">
               <SpinnerLoader />
