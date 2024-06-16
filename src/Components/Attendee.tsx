@@ -237,7 +237,7 @@ const Attendee = ({
         <div className="p-4 border-t border-b w-full mb-2">
           <p className="font-semibold">Attendance Records</p>
         </div>
-        <div className="text-center relative w-[540px]">
+        <div className="text-center relative w-full sm:w-[540px]">
           {isFetchingData && (
             <div className="absolute left-[47%] top-32">
               <SpinnerLoader />
