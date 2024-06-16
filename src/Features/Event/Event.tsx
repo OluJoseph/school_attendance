@@ -262,6 +262,7 @@ const Event = () => {
             <Attendee
               closeModal={() => attendeeModal.setIsModalOpen(false)}
               targetData={targetData}
+			  lectureCount={allLectures.length}
             />,
             document.body
           )}
