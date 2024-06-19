@@ -122,7 +122,6 @@ export interface IScholar {
   scholarId: UUID;
   schoolNumber: string;
   tagId: string;
-  bluetoothId: string;
   enrolled: boolean;
   userId: UUID;
   User?: IUser;
