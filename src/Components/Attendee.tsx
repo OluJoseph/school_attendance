@@ -230,7 +230,7 @@ const Attendee = ({
               </p>
             </div>
             <p className="font-semibold text-slate-700 text-2xl">
-              {calculateAttendancePercentage()} %
+              {calculateAttendancePercentage().toFixed(1)} %
             </p>
           </div>
         </div>
