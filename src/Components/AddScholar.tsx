@@ -134,7 +134,7 @@ const AddScholar = ({ closeModal, targetData }: AddScholarModalProps) => {
               <p className="text-slate-600">
                 Status: {targetData.enrolled ? "Enrolled" : "Not yet enrolled"}
               </p>
-              {!(targetData.tagId && targetData.bluetoothId) && (
+              {!targetData.tagId && (
                 <span
                   onClick={() => setIsModalOpen(true)}
                   className="cursor-pointer mr-4 text-blue-500 hover:text-blue-400 active:text-blue-700"
@@ -145,7 +145,6 @@ const AddScholar = ({ closeModal, targetData }: AddScholarModalProps) => {
             </div>
             <span className="text-slate-700 text-sm">
               Tag ID: {targetData.tagId ? "Assigned" : "Unassigned"} <br />
-              Bluetooth ID: {targetData.bluetoothId ? "Assigned" : "Unassigned"}
             </span>
           </div>
         )}

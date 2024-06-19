@@ -48,17 +48,16 @@ const Enrollment = ({ closeModal, scholar }: EnrollmentModalProps) => {
 
             // check if there were any changes in tagId or bluetoothId
             if (
-              (!scholar.tagId && result.tagId) ||
-              (!scholar.bluetoothId && result.bluetoothId)
+              (!scholar.tagId && result.tagId)
             ) {
               // scholar was updated
               setAlert({
-                message: "scholar enrolled with selected tag/bluetooth",
+                message: "scholar enrolled with selected tag",
                 severity: AlertSeverity.success,
               });
               clearTimeout(timeout);
               handleEnrollmentEnd(interval);
-            } else if (result.tagId && result.bluetoothId) {
+            } else if (result.tagId) {
               setAlert({
                 message: "scholar already enrolled",
                 severity: AlertSeverity.warning,
