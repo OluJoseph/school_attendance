@@ -200,9 +200,9 @@ const Event = () => {
       <div className="flex flex-col h-full items-center">
         <PageHeader description={user?.fullname} />
         <hr className="w-full" />
-        <section className="flex-1 h-full w-full pb-36 sm:px-[10%] lg:px-[20%] overflow-y-auto">
+        <section className="flex-1 flex flex-col h-full w-full pb-24 sm:px-[10%] lg:px-[20%] overflow-y-clip">
           <div className="flex items-center justify-between py-4">
-            <div className="pl-4 text-left">
+            <div className="pl-4 text-left ">
               <p className="font-semibold mb-2">
                 {eventName}{" "}
                 <span className="text-slate-500 italic font-normal text-sm">
@@ -246,7 +246,7 @@ const Event = () => {
           </div>
           <hr />
 
-          <div className="w-full text-center relative">
+          <div className="w-full flex-1 text-center relative overflow-y-auto">
             {isFetchingData && (
               <div className="absolute left-[47%] top-32">
                 <SpinnerLoader />

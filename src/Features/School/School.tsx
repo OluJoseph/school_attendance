@@ -211,10 +211,10 @@ const School = () => {
     <Page>
       <div className="flex flex-col h-full items-center">
         <PageHeader description={user?.fullname} />
-		
+
         <hr className="w-full" />
 
-        <section className=" w-full pb-10 sm:px-[10%] lg:px-[20%] overflow-y-auto">
+        <section className=" w-full h-full flex flex-col pb-10 sm:px-[10%] lg:px-[20%] overflow-y-clip">
           <div className="flex items-center justify-between py-4">
             <p className="font-semibold px-4">{scholar.School?.schoolName}</p>
             <ul className="flex items-end gap-2">
@@ -255,7 +255,7 @@ const School = () => {
           </div>
           <hr />
 
-          <div className="w-full text-center relative">
+          <div className="w-full flex-1 text-center relative overflow-y-auto">
             {isFetchingData && (
               <div className="absolute left-[47%] top-32 ">
                 <SpinnerLoader />
