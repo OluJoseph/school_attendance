@@ -186,6 +186,35 @@ const Event = () => {
     return <ul className="w-full text-left">{attendeeNodes}</ul>;
   }
 
+  async function getAttendanceSummary() {
+    setIsFetchingData(true);
+    try {
+      const summary = (
+        await get(`attendanceRecords/summary/${courseEventId}`, {
+          responseType: "blob",
+        })
+      ).data;
+
+      if (summary) {
+        const safeBlob = new Blob([summary], { type: "application/zip" });
+        const url = window.URL.createObjectURL(safeBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "attendance_report.zip";
+        link.click();
+        window.URL.revokeObjectURL(url);
+      }
+      setIsFetchingData(false);
+    } catch (error) {
+      setIsFetchingData(false);
+      console.log(error);
+      setAlert({
+        message: "Error fetching file",
+        severity: AlertSeverity.error,
+      });
+    }
+  }
+
   useEffect(() => {
     if (scholar) {
       fetchData();
@@ -235,14 +264,28 @@ const Event = () => {
             </ul>
           </div>
           <hr />
-          <div className="relative w-fit sm:w-[380px] pt-2">
-            <Tabs
-              id="schoolTabs"
-              tabs={tabs}
-              currentTab={tab}
-              handleSwitch={switchTab}
-              type="text"
-            />
+          <div className="relative w-full flex items-center justify-between">
+            <div className="sm:w-[380px] pt-2 relative">
+              <Tabs
+                id="schoolTabs"
+                tabs={tabs}
+                currentTab={tab}
+                handleSwitch={switchTab}
+                type="text"
+              />
+            </div>
+            <div className="pr-4">
+              {isFetchingData ? (
+                <SpinnerLoader />
+              ) : (
+                <button
+                  onClick={getAttendanceSummary}
+                  className="text-blue-500 hover:opacity-75"
+                >
+                  Get Summary
+                </button>
+              )}
+            </div>
           </div>
           <hr />
 
@@ -262,7 +305,7 @@ const Event = () => {
             <Attendee
               closeModal={() => attendeeModal.setIsModalOpen(false)}
               targetData={targetData}
-			  lectureCount={allLectures.length}
+              lectureCount={allLectures.length}
             />,
             document.body
           )}
