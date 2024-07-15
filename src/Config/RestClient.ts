@@ -32,8 +32,8 @@ class RestClient {
     return {};
   }
 
-  get(path: string): Promise<AxiosResponse> {
-    return this.axiosInstance.get(path, this.getConfig());
+  get(path: string, config: AxiosRequestConfig): Promise<AxiosResponse> {
+    return this.axiosInstance.get(path, { ...this.getConfig(), ...config });
   }
 
   del(path: string): Promise<AxiosResponse> {

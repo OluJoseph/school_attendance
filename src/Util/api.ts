@@ -1,9 +1,10 @@
+import { AxiosRequestConfig } from "axios";
 import RestClient from "../Config/RestClient";
 
 const backendService = new RestClient();
 
-export const get = async (path: string) => {
-  return await backendService.get(path);
+export const get = async (path: string, config: AxiosRequestConfig = {}) => {
+  return await backendService.get(path, config);
 };
 
 export const post = async (path: string, body: any) => {
