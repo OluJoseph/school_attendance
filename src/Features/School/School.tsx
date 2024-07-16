@@ -54,12 +54,14 @@ const School = () => {
       <AddEvent
         closeModal={() => setIsModalOpen(false)}
         targetData={targetData}
+		callbackOnSave={fetchData}
       />
     ),
     scholars: (
       <AddScholar
         closeModal={() => setIsModalOpen(false)}
         targetData={targetData}
+		callbackOnSave={fetchData}
       />
     ),
     devices: (
@@ -67,6 +69,7 @@ const School = () => {
         closeModal={() => setIsModalOpen(false)}
         targetData={targetData}
         allEvents={allEvents}
+		callbackOnSave={fetchData}
       />
     ),
   };

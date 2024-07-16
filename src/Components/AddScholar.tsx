@@ -16,6 +16,7 @@ import Enrollment from "./Enrollment";
 type AddScholarModalProps = {
   closeModal?: any;
   targetData: IScholar;
+  callbackOnSave: () => {};
 };
 
 const addScholarValidationSchema = {
@@ -31,7 +32,11 @@ const addScholarValidationSchema = {
   },
 };
 
-const AddScholar = ({ closeModal, targetData }: AddScholarModalProps) => {
+const AddScholar = ({
+  closeModal,
+  targetData,
+  callbackOnSave,
+}: AddScholarModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<any>({});
 
@@ -85,7 +90,7 @@ const AddScholar = ({ closeModal, targetData }: AddScholarModalProps) => {
           });
           setIsSubmitting(false);
           closeModal();
-          window.location.reload();
+          callbackOnSave();
         }
       } catch (err: any) {
         setIsSubmitting(false);

@@ -12,6 +12,7 @@ import { post } from "../Util/api";
 type AddEventModalProps = {
   closeModal?: any;
   targetData: ICourseEvent | IAttendee;
+  callbackOnSave: () => {};
 };
 
 const addEventValidationSchema = {
@@ -30,7 +31,7 @@ const addEventValidationSchema = {
   },
 };
 
-const AddEvent = ({ closeModal }: AddEventModalProps) => {
+const AddEvent = ({ closeModal, callbackOnSave }: AddEventModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<any>({});
   const { scholar } = useContext(ScholarContext);
@@ -70,7 +71,7 @@ const AddEvent = ({ closeModal }: AddEventModalProps) => {
           });
           setIsSubmitting(false);
           closeModal();
-          window.location.reload();
+          callbackOnSave();
         }
       } catch (err: any) {
         setIsSubmitting(false);
