@@ -56,6 +56,7 @@ const Event = () => {
       <AddLecture
         closeModal={() => tabModal.setIsModalOpen(false)}
         targetData={targetData}
+		callbackOnSave={fetchData}
       />
     ),
   };

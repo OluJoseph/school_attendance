@@ -35,6 +35,7 @@ const Home = () => {
   const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
   async function fetchData() {
+    setIsFetchingData(true);
     try {
       if (!user) {
         let thisUser = (await get("user")).data;
@@ -100,7 +101,6 @@ const Home = () => {
 
   useEffect(() => {
     if (userToken) {
-      setIsFetchingData(true);
       fetchData();
     } else {
       logout(setUser, navigate);
@@ -142,6 +142,7 @@ const Home = () => {
           createPortal(
             <AddSchool
               closeModal={() => addSchoolModal.setIsModalOpen(false)}
+              callbackOnSave={fetchData}
             />,
             document.body
           )}

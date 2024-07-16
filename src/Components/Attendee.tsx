@@ -36,7 +36,10 @@ const Attendee = ({
     role: targetData?.role,
   });
 
-  const [records, setRecords] = useState<IAttendanceRecord[]>();
+  const [records, setRecords] = useState<{
+    studentRecords: IAttendanceRecord[];
+    lecturesHeld: number;
+  }>();
 
   const { setNetworkError } = useContext(ApiErrorContext);
   const { setAlert } = useContext(AlertContext);
@@ -47,41 +50,45 @@ const Attendee = ({
   }
 
   function displayRecords() {
-    const recordNodes = records?.map((record: IAttendanceRecord) => {
-      return (
-        <li key={record.lectureId} className="py-4 px-2 w-full border-b">
-          <div className="flex justify-between items-end">
-            <div className="flex flex-col gap-1">
-              <p className="cursor-pointer mr-4 text-blue-500 hover:text-blue-400 active:text-blue-700">
-                {record.Lecture?.lectureName}
-              </p>
-              <div>
-                <span className="text-slate-700 text-sm mr-4">
-                  In:{" "}
-                  {record.timeIn
-                    ? new Date(record.timeIn).toLocaleTimeString()
-                    : ""}
-                </span>
-                <span className="text-slate-700 text-sm">
-                  Out:{" "}
-                  {record.timeOut
-                    ? new Date(record.timeOut).toLocaleTimeString()
-                    : ""}
-                </span>
+    const recordNodes = records?.studentRecords?.map(
+      (record: IAttendanceRecord) => {
+        return (
+          <li key={record.lectureId} className="py-4 px-2 w-full border-b">
+            <div className="flex justify-between items-end">
+              <div className="flex flex-col gap-1">
+                <p className="cursor-pointer mr-4 text-blue-500 hover:text-blue-400 active:text-blue-700">
+                  {record.Lecture?.lectureName}
+                </p>
+                <div>
+                  <span className="text-slate-700 text-sm mr-4">
+                    In:{" "}
+                    {record.timeIn
+                      ? new Date(record.timeIn).toLocaleTimeString()
+                      : ""}
+                  </span>
+                  <span className="text-slate-700 text-sm">
+                    Out:{" "}
+                    {record.timeOut
+                      ? new Date(record.timeOut).toLocaleTimeString()
+                      : ""}
+                  </span>
+                </div>
               </div>
+              <p className="text-slate-700 text-sm mr-4">
+                {new Date(record.timeIn).toDateString()}
+              </p>
             </div>
-            <p className="text-slate-700 text-sm mr-4">
-              {new Date(record.timeIn).toDateString()}
-            </p>
-          </div>
-        </li>
-      );
-    });
+          </li>
+        );
+      }
+    );
     return <ul className="w-full text-left px-4">{recordNodes}</ul>;
   }
 
   function calculateAttendancePercentage() {
-    const percentage = ((records?.length || 0) / lectureCount) * 100;
+    const percentage =
+      ((records?.studentRecords.length || 0) / (records?.lecturesHeld || 1)) *
+      100;
     return percentage;
   }
 
@@ -103,8 +110,6 @@ const Attendee = ({
             severity: AlertSeverity.success,
           });
           setIsSubmitting(false);
-          closeModal();
-          window.location.reload();
         }
       } catch (err: any) {
         setIsSubmitting(false);
@@ -132,13 +137,13 @@ const Attendee = ({
   }
 
   async function fetchAttendeeRecords() {
+    setIsFetchingData(true);
     try {
       const records = (
         await get(
           `/attendanceRecords/scholar/${targetData.courseEventId}/${targetData.scholarId}`
         )
       ).data;
-
       records && setRecords(records);
       setIsFetchingData(false);
     } catch (error) {
@@ -158,14 +163,13 @@ const Attendee = ({
   }, [isSubmitting]);
 
   useEffect(() => {
-    setIsFetchingData(true);
     fetchAttendeeRecords();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Modal closeModal={closeModal}>
-      <div className="w-full h-[700px] max-h-[700px]">
+      <div className="w-full h-[700px] max-h-[700px] overflow-clip flex flex-col">
         <h4 className="absolute top-[20px] left-[16px]">
           <p>
             <span className="font-semibold">{targetData.User?.fullname}, </span>
@@ -222,11 +226,18 @@ const Attendee = ({
           <div className="sm:flex-1 flex flex-col gap-2 sm:flex-row w-[150px] min-w-fit sm:items-center justify-around border-l pl-4 h-full">
             <div className="flex flex-col">
               <p>
-                Lectures: <span className="font-semibold">{lectureCount}</span>
+                Total Lectures:{" "}
+                <span className="font-semibold">{lectureCount}</span>
+              </p>
+              <p>
+                Lectures Held:{" "}
+                <span className="font-semibold">{records?.lecturesHeld}</span>
               </p>
               <p>
                 Attended:{" "}
-                <span className="font-semibold">{records?.length || ""}</span>
+                <span className="font-semibold">
+                  {records?.studentRecords.length || ""}
+                </span>
               </p>
             </div>
             <p className="font-semibold text-slate-700 text-2xl">
@@ -237,7 +248,7 @@ const Attendee = ({
         <div className="p-4 border-t border-b w-full mb-2">
           <p className="font-semibold">Attendance Records</p>
         </div>
-        <div className="text-center relative w-full sm:w-[540px]">
+        <div className="text-center relative w-full sm:w-[540px] overflow-auto">
           {isFetchingData && (
             <div className="absolute left-[47%] top-32">
               <SpinnerLoader />

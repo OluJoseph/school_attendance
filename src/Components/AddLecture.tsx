@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 type AddLectureModalProps = {
   closeModal?: any;
   targetData?: ILecture;
+  callbackOnSave: () => {};
 };
 
 const addLectureValidationSchema = {
@@ -27,7 +28,11 @@ const addLectureValidationSchema = {
   },
 };
 
-const AddLecture = ({ closeModal, targetData }: AddLectureModalProps) => {
+const AddLecture = ({
+  closeModal,
+  targetData,
+  callbackOnSave,
+}: AddLectureModalProps) => {
   const { courseEventId } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<any>({});
@@ -81,7 +86,7 @@ const AddLecture = ({ closeModal, targetData }: AddLectureModalProps) => {
           });
           setIsSubmitting(false);
           closeModal();
-          window.location.reload();
+          callbackOnSave();
         }
       } catch (err: any) {
         setIsSubmitting(false);

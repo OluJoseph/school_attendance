@@ -14,6 +14,7 @@ type AddDeviceModalProps = {
   closeModal?: any;
   targetData: IDevice;
   allEvents?: ICourseEvent[];
+  callbackOnSave: () => {};
 };
 
 const addDeviceValidationSchema = {
@@ -26,6 +27,7 @@ const AddDevice = ({
   closeModal,
   targetData,
   allEvents,
+  callbackOnSave,
 }: AddDeviceModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<any>({});
@@ -94,10 +96,10 @@ const AddDevice = ({
           });
           setIsSubmitting(false);
           closeModal();
-          window.location.reload();
+          callbackOnSave();
         }
       } catch (err: any) {
-		console.log(err)
+        console.log(err);
         setIsSubmitting(false);
         if (err.message === "Network Error") {
           setNetworkError(true);

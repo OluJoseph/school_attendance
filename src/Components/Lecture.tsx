@@ -75,7 +75,7 @@ const Lecture = ({ closeModal, targetData }: LectureModalProps) => {
 
   return (
     <Modal closeModal={closeModal}>
-      <div className="w-full sm:h-[700px]">
+      <div className="w-full sm:h-[700px] overflow-clip flex flex-col">
         <h4 className="absolute top-[20px] left-[16px] font-semibold">
           <span className="font-semibold">{targetData.lectureName} </span>
         </h4>
@@ -93,7 +93,7 @@ const Lecture = ({ closeModal, targetData }: LectureModalProps) => {
         <div className="p-4 border-t border-b w-full mb-2">
           <p className="font-semibold">Attendance Records</p>
         </div>
-        <div className="w-full sm:w-[540px] text-center relative">
+        <div className="w-full sm:w-[540px] text-center relative overflow-auto">
           {isFetchingData && (
             <div className="absolute left-[47%] top-32">
               <SpinnerLoader />

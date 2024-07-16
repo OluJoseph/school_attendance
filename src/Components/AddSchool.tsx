@@ -11,6 +11,7 @@ import { post } from "../Util/api";
 
 type AddSchoolModalProps = {
   closeModal?: any;
+  callbackOnSave: () => {};
 };
 
 const addSchoolValidationSchema = {
@@ -19,7 +20,7 @@ const addSchoolValidationSchema = {
   },
 };
 
-const AddSchool = ({ closeModal }: AddSchoolModalProps) => {
+const AddSchool = ({ closeModal, callbackOnSave }: AddSchoolModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<any>({});
 
@@ -48,7 +49,7 @@ const AddSchool = ({ closeModal }: AddSchoolModalProps) => {
           });
           setIsSubmitting(false);
           closeModal();
-          window.location.reload();
+          callbackOnSave();
         }
       } catch (err: any) {
         setIsSubmitting(false);
